@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Neighbor</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="first_activity_btn_submit" translatable="false">submit</string>
+    <string name="first_activity_text_name">enter your username...</string>
+    <!--    <string name="default_webpage_url">https://www.baidu.com/</string>-->
+    <string name="default_webpage_url">http://192.168.43.137:8090/</string>
+    <string name="hint_webpage_url">enter your webview page url...</string>
+    <string name="IP">192.168.43.137</string>
+    <string name="error_page_pro">file:///android_asset/html/error/500.html</string>
+    <string name="score">Score</string>
+</resources>
