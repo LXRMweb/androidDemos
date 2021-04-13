@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.lxrm.demo.fragment.DemoLeftFragment"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:id="@+id/demo_fragment_left_btn1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="运行时动态替换fragment" />
+
+    <Button
+        android:id="@+id/demo_fragment_left_btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="Activity中调用fragment中func" />
+
+    <Button
+        android:id="@+id/demo_fragment_left_btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="fragment中调用activity中func" />
+
+    <Button
+        android:id="@+id/demo_fragment_left_btn4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="fragment中调用另一个fragment中的func" />
+</LinearLayout>

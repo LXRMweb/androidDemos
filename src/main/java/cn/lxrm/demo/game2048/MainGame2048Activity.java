@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.example.appdemo01.R;
 
 public class MainGame2048Activity extends AppCompatActivity implements View.OnClickListener {
+    private final String TAG = this.getClass().getSimpleName();
     private int score;
     private TextView tvScore;
 
@@ -37,10 +39,20 @@ public class MainGame2048Activity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game2048);
-        // 设置屏幕方向：水平方向（不随设备转动而改变方向）
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.cards_game2048);
+        frameLayout.addView(new GameView2048(this));
+//        setContentView(new GameView2048(this));
+//        // 设置屏幕方向：水平方向（不随设备转动而改变方向）
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         tvScore = (TextView) findViewById(R.id.tv_score_game2048);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.v(TAG,"销毁当前Activity");
+        finish();
     }
 
     public void clearScore(){

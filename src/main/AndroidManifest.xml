@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppDemo01"
         android:usesCleartextTraffic="true">
-        <activity android:name="cn.lxrm.demo.game2048.MainGame2048Activity"></activity>
+        <activity android:name="cn.lxrm.demo.fragment.TestFragmentActivity"></activity>
+        <activity
+            android:name="cn.lxrm.demo.game2048.MainGame2048Activity"
+            android:screenOrientation="landscape" />
         <activity android:name="cn.lxrm.demo.mymenu.TestMyMenuActivity" />
         <activity android:name="cn.lxrm.demo.crazycat.CatchCrazzyCatActivity" />
         <activity android:name="cn.lxrm.demo.contactors.ConstractorsActivity" />

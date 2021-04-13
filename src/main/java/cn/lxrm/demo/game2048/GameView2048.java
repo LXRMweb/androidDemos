@@ -33,7 +33,7 @@ public class GameView2048 extends GridLayout {
     // 初始随机数个数
     private final int INIT_RANDOM_NUM = 2;
     // 卡片（CARD_ARRAY_SIZE*CARD_ARRAY_SIZE的数组）
-    private Card[][] cards = new Card[CARD_ARRAY_SIZE][CARD_ARRAY_SIZE];
+    private Card[][] cards;
     // 空点数组（没有数字的卡片坐标数组）
     private List<Point> emptyCards = new ArrayList<>();
 
@@ -54,9 +54,12 @@ public class GameView2048 extends GridLayout {
 
     private void initGameView(Context context) {
         this.context = context;
+        cards = new Card[CARD_ARRAY_SIZE][CARD_ARRAY_SIZE];
 
         // 设置GridView列数：CARD_ARRAY_SIZE列
         setColumnCount(CARD_ARRAY_SIZE);
+
+        redraw();
 
         handleTouchEvent();
     }

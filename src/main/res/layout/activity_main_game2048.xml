@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -30,11 +29,18 @@
             android:layout_weight="1"
             android:text="Restart" />
     </LinearLayout>
-    <cn.lxrm.demo.game2048.GameView2048
+    <FrameLayout
+        android:id="@+id/cards_game2048"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/gray_game2048">
-    </cn.lxrm.demo.game2048.GameView2048>
+    </FrameLayout>
+<!--    <cn.lxrm.demo.game2048.GameView2048-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:background="@color/gray_game2048">-->
+<!--    </cn.lxrm.demo.game2048.GameView2048>-->
 
 </LinearLayout>

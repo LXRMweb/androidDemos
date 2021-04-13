@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.appdemo01"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
     //  AnimatedCircleLoadingView：android  loading 弹出框（带加载进度）
     implementation 'com.github.jlmd:AnimatedCircleLoadingView:1.1.5@aar'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

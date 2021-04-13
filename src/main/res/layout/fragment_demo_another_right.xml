@@ -1,0 +1,17 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.lxrm.demo.fragment.DemoAnotherRightFragment"
+    android:background="@color/black">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:text="@string/hello_blank_fragment"
+        android:textColor="@color/white"/>
+
+</FrameLayout>

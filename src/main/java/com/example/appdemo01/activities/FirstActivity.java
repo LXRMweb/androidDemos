@@ -16,6 +16,7 @@ import java.lang.reflect.Array;
 
 import cn.lxrm.demo.contactors.ConstractorsActivity;
 import cn.lxrm.demo.crazycat.CatchCrazzyCatActivity;
+import cn.lxrm.demo.fragment.TestFragmentActivity;
 import cn.lxrm.demo.game2048.MainGame2048Activity;
 import cn.lxrm.demo.mymenu.TestMyMenuActivity;
 import cn.lxrm.demo.timer.Timer2Activity;
@@ -97,6 +98,10 @@ public class FirstActivity extends AppCompatActivity {
             case "9":
                 Intent intent6 = new Intent(FirstActivity.this, MainGame2048Activity.class);
                 startActivity(intent6);
+                break;
+            case "10":
+                Intent intent7 = new Intent(FirstActivity.this, TestFragmentActivity.class);
+                startActivity(intent7);
                 break;
             default:
                 Log.v(TAG,"test Toast in native");

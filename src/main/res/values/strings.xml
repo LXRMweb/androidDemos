@@ -17,4 +17,7 @@
     <string name="IP">192.168.43.137</string>
     <string name="error_page_pro">file:///android_asset/html/error/500.html</string>
     <string name="score">Score</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="another_blank_right_fragment">This is another right fragment</string>
 </resources>
