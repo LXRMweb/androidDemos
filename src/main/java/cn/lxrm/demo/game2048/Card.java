@@ -25,7 +25,6 @@ public class Card extends FrameLayout {
 
     public Card(@NonNull Context context) {
         super(context);
-
         initTextView(context);
         setNum(0);
     }

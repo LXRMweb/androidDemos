@@ -21,6 +21,7 @@ import cn.lxrm.demo.game2048.MainGame2048Activity;
 import cn.lxrm.demo.mymenu.TestMyMenuActivity;
 import cn.lxrm.demo.timer.Timer2Activity;
 import cn.lxrm.demo.timer.TimerActivity;
+import cn.lxrm.demo.view.commonview.CommonViewMainActivity;
 
 public class FirstActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.appdemo01.MESSAGE";
@@ -102,6 +103,10 @@ public class FirstActivity extends AppCompatActivity {
             case "10":
                 Intent intent7 = new Intent(FirstActivity.this, TestFragmentActivity.class);
                 startActivity(intent7);
+                break;
+            case "11":
+                Intent intent8 = new Intent(FirstActivity.this, CommonViewMainActivity.class);
+                startActivity(intent8);
                 break;
             default:
                 Log.v(TAG,"test Toast in native");

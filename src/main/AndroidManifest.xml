@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppDemo01"
         android:usesCleartextTraffic="true">
-        <activity android:name="cn.lxrm.demo.fragment.TestFragmentActivity"></activity>
+        <activity android:name="cn.lxrm.demo.view.commonview.CommonViewMainActivity"></activity>
+        <activity android:name="cn.lxrm.demo.fragment.TestFragmentActivity" />
         <activity
             android:name="cn.lxrm.demo.game2048.MainGame2048Activity"
             android:screenOrientation="landscape" />

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cn.lxrm.demo.view.commonview.CommonViewMainActivity">
+
+<!--    <cn.lxrm.demo.view.customview.EditTextWithClear-->
+<!--        android:id="@+id/editTextWithClear01"-->
+<!--        style="@style/Widget.AppCompat.EditText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:drawableEnd="@drawable/ic_baseline_clear_24"-->
+<!--        android:ems="10"-->
+<!--        android:hint="this is a custom EditText(EditTextWithClear)"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:text=""-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <cn.lxrm.demo.view.customview.EditTextWithClear2
+        android:id="@+id/editTextWithClear02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="this is a custom EditText(EditTextWithClear)"
+        android:layout_gravity="right"
+        style="@style/Widget.AppCompat.EditText">
+    </cn.lxrm.demo.view.customview.EditTextWithClear2>
+    <cn.lxrm.demo.view.customview.EditTextWithClear2
+        android:id="@+id/editTextWithClear03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="this is a custom EditText(EditTextWithClear)"
+        android:layout_gravity="right"
+        style="@style/Widget.AppCompat.EditText">
+    </cn.lxrm.demo.view.customview.EditTextWithClear2>
+
+    <!--  android:drawableStart 在普通组件的开头加上图标
+          创建图标：/res -> 右键 -> new -> vector asset -> clip art ->
+     -->
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_baseline_keyboard_return_24"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextTextPersonName3"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="this is a common EditText"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDemo01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</LinearLayout>
