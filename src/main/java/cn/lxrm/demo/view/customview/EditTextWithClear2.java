@@ -88,7 +88,7 @@ public class EditTextWithClear2 extends androidx.appcompat.widget.AppCompatEditT
         try {
             // 获取layout.xml中为自定义组件EditTextWithClear2设置的clearIcon属性的值，并且在没有获取到相应值时为赋值为-1
             int resourceId = customedViewAttrs.getResourceId(R.styleable.EditTextWithClear2_clearIcon, -1);
-            Log.d(TAG,"clearIcon::ResourceId="+resourceId);
+            Log.d(TAG, "clearIcon::ResourceId=" + resourceId);
             if (resourceId != -1) {
                 /* layout.xml中为自定义组件设置了clearIcon属性时,获取属性值，加载相应的资源（icon图标）并赋值给drawableClearIcon
                         如果layout.xml中没有为自定义组件配置clearIcon属性，则不加载“清除”图标
@@ -97,8 +97,6 @@ public class EditTextWithClear2 extends androidx.appcompat.widget.AppCompatEditT
             }
 //            mShowText = customedViewAttrs.getBoolean(R.styleable.PieChart_showText, false);
 //            textPos = customedViewAttrs.getInteger(R.styleable.PieChart_labelPosition, 0);
-        } catch (Exception e){
-            e.printStackTrace();
         } finally {
             // 请注意，TypedArray 对象是共享资源，必须在使用后回收。
             customedViewAttrs.recycle();
@@ -149,17 +147,19 @@ public class EditTextWithClear2 extends androidx.appcompat.widget.AppCompatEditT
     private boolean toggleClearIcon(MotionEvent event) {
         // 触摸屏幕，手指抬起之后才去做相应操作
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            /* 如何判断是否点击了“清除”图标？
-             *    屏幕触摸位置在“图标”上或图标附近时，即认定是点击了“清除”图标
-             *    getWidth获取的是当前EditText组件的宽度
-             *    drawableClearIcon.getIntrinsicWidth() 是图标的固有宽度
-             *    +/-20 是为了提升用户使用体验，只要点击了图标附近，都认为是点击了图标
-             * */
-            if (event.getX() > getWidth() - drawableClearIcon.getIntrinsicWidth() - 20
-                    && event.getX() < getWidth() + 20
-                    && event.getY() > getHeight() / 2 - drawableClearIcon.getIntrinsicHeight() / 2 - 20
-                    && event.getY() < getHeight() / 2 + drawableClearIcon.getIntrinsicHeight() / 2 + 20) {
-                Objects.requireNonNull(getText()).clear();
+            if (drawableClearIcon != null) {
+                /* 如何判断是否点击了“清除”图标？
+                 *    屏幕触摸位置在“图标”上或图标附近时，即认定是点击了“清除”图标
+                 *    getWidth获取的是当前EditText组件的宽度
+                 *    drawableClearIcon.getIntrinsicWidth() 是图标的固有宽度
+                 *    +/-20 是为了提升用户使用体验，只要点击了图标附近，都认为是点击了图标
+                 * */
+                if (event.getX() > getWidth() - drawableClearIcon.getIntrinsicWidth() - 20
+                        && event.getX() < getWidth() + 20
+                        && event.getY() > getHeight() / 2 - drawableClearIcon.getIntrinsicHeight() / 2 - 20
+                        && event.getY() < getHeight() / 2 + drawableClearIcon.getIntrinsicHeight() / 2 + 20) {
+                    Objects.requireNonNull(getText()).clear();
+                }
             }
         }
         super.performClick();

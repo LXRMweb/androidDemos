@@ -57,8 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:hint="this is a custom EditText(EditTextWithClear)"
-        app:clearIcon="@drawable/ic_baseline_clear_24">
+        android:hint="this is a custom EditText(EditTextWithClear)">
         <!-- 没有使用自定义属性clearIcon，所以不会有清除图标 -->
     </cn.lxrm.demo.view.customview.EditTextWithClear2>
 
@@ -83,4 +82,18 @@
         app:clearIcon="@android:drawable/btn_dialog">
         <!-- 使用了clearIcon属性，配置了清除图标的资源文件为另一个图标@drawable/btn_dialog -->
     </cn.lxrm.demo.view.customview.EditTextWithClear2>
+
+    <!-- 系统自带的带清除图标的editText
+            除了有清除图标功能外，它还封装了许多其他特性
+            清除图标：    app:endIconMode="clear_text"-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="系统自带的带清除图标的editText" />
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>
