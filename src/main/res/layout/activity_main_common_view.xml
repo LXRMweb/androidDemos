@@ -22,26 +22,12 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <cn.lxrm.demo.view.customview.EditTextWithClear2
-        android:id="@+id/editTextWithClear02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="this is a custom EditText(EditTextWithClear)"
-        android:layout_gravity="right"
-        style="@style/Widget.AppCompat.EditText">
-    </cn.lxrm.demo.view.customview.EditTextWithClear2>
-    <cn.lxrm.demo.view.customview.EditTextWithClear2
-        android:id="@+id/editTextWithClear03"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="this is a custom EditText(EditTextWithClear)"
-        android:layout_gravity="right"
-        style="@style/Widget.AppCompat.EditText">
-    </cn.lxrm.demo.view.customview.EditTextWithClear2>
+
 
     <!--  android:drawableStart 在普通组件的开头加上图标
           创建图标：/res -> 右键 -> new -> vector asset -> clip art ->
      -->
+
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
@@ -64,4 +50,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <cn.lxrm.demo.view.customview.EditTextWithClear2
+        android:id="@+id/editTextWithClear02"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:hint="this is a custom EditText(EditTextWithClear)"
+        app:clearIcon="@drawable/ic_baseline_clear_24">
+        <!-- 没有使用自定义属性clearIcon，所以不会有清除图标 -->
+    </cn.lxrm.demo.view.customview.EditTextWithClear2>
+
+    <cn.lxrm.demo.view.customview.EditTextWithClear2
+        android:id="@+id/editTextWithClear03"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:hint="this is a custom EditText(EditTextWithClear)"
+        app:clearIcon="@drawable/ic_baseline_clear_24">
+        <!-- 使用了clearIcon属性，配置了清除图标的资源文件为@drawable/ic_baseline_clear_24 -->
+    </cn.lxrm.demo.view.customview.EditTextWithClear2>
+
+    <cn.lxrm.demo.view.customview.EditTextWithClear2
+        android:id="@+id/editTextWithClear"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:hint="this is a custom EditText(EditTextWithClear)"
+        app:clearIcon="@android:drawable/btn_dialog">
+        <!-- 使用了clearIcon属性，配置了清除图标的资源文件为另一个图标@drawable/btn_dialog -->
+    </cn.lxrm.demo.view.customview.EditTextWithClear2>
 </LinearLayout>

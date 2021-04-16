@@ -23,7 +23,10 @@ import com.example.appdemo01.R;
  *          这种方案有明显的缺点，代码重复度高 && 不利于后期维护
  *          所以，还有其他更好的方法来实现上述需求么
  *          答案很明显：有，使用自定义view就可以实现上述需求，且自定义view将会更好，因为自定义view有更好的封装性和可复用性
- *
+ * 附录：
+ *      1. 为自定义视图添加专属属性
+ *          https://developer.android.google.cn/training/custom-views/create-view#java
+ *      2.
  * @author created by ChenMeiYu at 2021-4-14 19:54, v1.0
  */
 public class EditTextWithClear extends androidx.appcompat.widget.AppCompatEditText {
