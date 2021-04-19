@@ -20,6 +20,8 @@ import cn.lxrm.demo.mymenu.TestMyMenuActivity;
 import cn.lxrm.demo.timer.Timer2Activity;
 import cn.lxrm.demo.timer.TimerActivity;
 import cn.lxrm.demo.view.TestViewMainActivity;
+import cn.lxrm.demo.view.customview.TestDrawSinViewMainActivity;
+import cn.lxrm.demo.view.lifecycle.TestViewLifecycleMainActivity;
 
 public class FirstActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.appdemo01.MESSAGE";
@@ -105,6 +107,14 @@ public class FirstActivity extends AppCompatActivity {
             case "11":
                 Intent intent8 = new Intent(FirstActivity.this, TestViewMainActivity.class);
                 startActivity(intent8);
+                break;
+            case "12":
+                Intent intent9 = new Intent(FirstActivity.this, TestViewLifecycleMainActivity.class);
+                startActivity(intent9);
+                break;
+            case "13":
+                Intent intent10 = new Intent(FirstActivity.this, TestDrawSinViewMainActivity.class);
+                startActivity(intent10);
                 break;
             default:
                 Log.v(TAG,"test Toast in native");

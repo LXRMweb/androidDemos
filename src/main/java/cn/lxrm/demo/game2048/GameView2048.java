@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class GameView2048 extends GridLayout {
 
-    private Context context;
     private final String TAG = this.getClass().getSimpleName();
     // 卡片宽度
     int cardWidth = 0;
@@ -39,21 +38,20 @@ public class GameView2048 extends GridLayout {
 
     public GameView2048(Context context) {
         super(context);
-        initGameView(context);
+        initGameView();
     }
 
     public GameView2048(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initGameView(context);
+        initGameView();
     }
 
     public GameView2048(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initGameView(context);
+        initGameView();
     }
 
-    private void initGameView(Context context) {
-        this.context = context;
+    private void initGameView() {
         cards = new Card[CARD_ARRAY_SIZE][CARD_ARRAY_SIZE];
 
         // 设置GridView列数：CARD_ARRAY_SIZE列

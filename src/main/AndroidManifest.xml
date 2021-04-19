@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppDemo01"
         android:usesCleartextTraffic="true">
-        <activity android:name="cn.lxrm.demo.view.TestViewMainActivity"></activity>
+        <activity android:name="cn.lxrm.demo.view.lifecycle.TestViewLifecycleMainActivity"></activity>
+        <activity android:name="cn.lxrm.demo.view.customview.TestDrawSinViewMainActivity" />
+        <activity android:name="cn.lxrm.demo.view.TestViewMainActivity" />
         <activity android:name="cn.lxrm.demo.fragment.TestFragmentActivity" />
         <activity
             android:name="cn.lxrm.demo.game2048.MainGame2048Activity"
