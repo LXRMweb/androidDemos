@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appdemo01.R;
 import com.example.appdemo01.webview.WebviewUtils;
 
-import java.lang.reflect.Array;
-
 import cn.lxrm.demo.contactors.ConstractorsActivity;
 import cn.lxrm.demo.crazycat.CatchCrazzyCatActivity;
 import cn.lxrm.demo.fragment.TestFragmentActivity;
@@ -21,7 +19,7 @@ import cn.lxrm.demo.game2048.MainGame2048Activity;
 import cn.lxrm.demo.mymenu.TestMyMenuActivity;
 import cn.lxrm.demo.timer.Timer2Activity;
 import cn.lxrm.demo.timer.TimerActivity;
-import cn.lxrm.demo.view.commonview.CommonViewMainActivity;
+import cn.lxrm.demo.view.TestViewMainActivity;
 
 public class FirstActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.appdemo01.MESSAGE";
@@ -105,7 +103,7 @@ public class FirstActivity extends AppCompatActivity {
                 startActivity(intent7);
                 break;
             case "11":
-                Intent intent8 = new Intent(FirstActivity.this, CommonViewMainActivity.class);
+                Intent intent8 = new Intent(FirstActivity.this, TestViewMainActivity.class);
                 startActivity(intent8);
                 break;
             default:

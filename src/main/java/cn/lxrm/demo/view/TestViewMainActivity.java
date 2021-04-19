@@ -1,4 +1,4 @@
-package cn.lxrm.demo.view.commonview;
+package cn.lxrm.demo.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import com.example.appdemo01.R;
 
-public class CommonViewMainActivity extends AppCompatActivity {
+public class TestViewMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

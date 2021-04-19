@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="cn.lxrm.demo.view.commonview.CommonViewMainActivity">
+    tools:context="cn.lxrm.demo.view.TestViewMainActivity">
 
 <!--    <cn.lxrm.demo.view.customview.EditTextWithClear-->
 <!--        android:id="@+id/editTextWithClear01"-->
