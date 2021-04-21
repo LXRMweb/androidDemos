@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Lifecycle;
@@ -244,28 +245,6 @@ public class DrawSinView extends View implements LifecycleObserver {
         canvas.drawLine(0, 0, radius, 0, vectorLinePaint);
     }
 
-//    /** Description: 矢量旋转
-//     * @author created by Meiyu Chen at 2021-4-20 14:56, v1.0
-//     */
-//    private void startRotating(){
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (true) {
-//                    try {
-//                        // 每隔100ms, 矢量顺时针旋转5度
-//                        Thread.sleep(100);
-//                        currAngle += 5f;
-//                        // 重新执行onDraw()，重新绘制view，必须在UI线程中调用
-//                        invalidate();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }).start();
-//    }
-
     /** Description: 矢量旋转函数
      *      矢量匀速顺时针旋转，并且每次旋转之后刷新UI
      *      使用@OnLifecycleEvent(Lifecycle.Event.ON_RESUME)注解将矢量旋转动作和activity生命周期的resume()绑定在一起
@@ -288,18 +267,20 @@ public class DrawSinView extends View implements LifecycleObserver {
                         currAngle += 5f;
                         currAngle %= 360;
                         Log.d(TAG, "doInBackground: currAngle = " + currAngle);
-                        publishProgress();
+                        Log.d(TAG, "doInBackground: currAngle = 直接在子线程中调用invalidate()函数");
+//                        publishProgress();
+                        invalidate();
                     } catch (InterruptedException e) {
                         Log.d(TAG, "doInBackground: 矢量旋转线程被中断");
                     }
                 }
             }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                // invalidate():  重新执行onDraw()，重新绘制view，必须在UI线程中调用
-                invalidate();
-            }
+//
+//            @Override
+//            protected void onProgressUpdate(Void... values) {
+//                // invalidate():  重新执行onDraw()，重新绘制view，必须在UI线程中调用
+//                invalidate();
+//            }
         }.execute();
     }
 
