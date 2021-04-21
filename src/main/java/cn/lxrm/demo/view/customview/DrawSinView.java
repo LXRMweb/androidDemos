@@ -1,15 +1,20 @@
 package cn.lxrm.demo.view.customview;
 
+import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
 import com.example.appdemo01.R;
 
@@ -18,11 +23,24 @@ import static cn.lxrm.demo.view.utils.DrawPicUtils.*;
 /**
  * README: 绘制正弦函数
  *
+ * 自定义视图和所属Activity生命周期绑定：
+ *      定义：所谓生命周期绑定，就是说要让你的自定义view和其所属activity生命周期一致，activity进入暂停态时，你的自定义view也进入暂停态
+ *            activity激活时，view也跟着激活，如：本例中的矢量旋转函数，和activity生命周期绑定到一起了，那activity暂停时，暂停矢量旋转，activity恢复可见状态时，矢量旋转动作也恢复
+ *      代码实现步骤：
+ *          step1，自定义view要实现LifecycleObserver接口，将这个自定义视图和其所属Activity的生命周期绑定在一起
+ *          step2，为自定义view的相应method添加注解
+ *              如，本例中为startRotating()函数添加注解 @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+ *                  使得该自定义view的矢量旋转动作跟activity的生命周期绑定在一起，activity进入暂停态时，矢量旋转暂停，activity恢复活跃态时，矢量旋转恢复
+ *          step3, 在相应的activity中为自定义view添加obsever
+ *              如：在TestDrawSinViewMainActivity中编写
+ *                   DrawSinView drawSinView = (DrawSinView) findViewById(R.id.drawSinView);
+ *                   // 为自定义视图添加activity生命周期监听器，将自定义视图和activity生命周期绑定在一起
+ *                   getLifecycle().addObserver(drawSinView);
  * @author created by Meiyu Chen at 2021-4-19 14:55, v1.0
  * modified by [TODO-修改者] at [TODO-修改时间], [TODO-版本], 修改内容概述如下:
  * [TODO-修改内容概述]
  */
-public class DrawSinView extends View {
+public class DrawSinView extends View implements LifecycleObserver {
     private final String TAG = this.getClass().getSimpleName();
 
     // 当前view组件的宽度和高度
@@ -42,6 +60,9 @@ public class DrawSinView extends View {
     private Paint vectorLinePaint;
     // 文字画笔
     private Paint textPaint;
+
+    // 子线程（矢量旋转线程）
+    private AsyncTask<Void, Void, Void> asyncTask;
 
     public DrawSinView(Context context) {
         super(context);
@@ -223,10 +244,73 @@ public class DrawSinView extends View {
         canvas.drawLine(0, 0, radius, 0, vectorLinePaint);
     }
 
-    /** Description: 矢量旋转
-     * @author created by Meiyu Chen at 2021-4-20 14:56, v1.0
+//    /** Description: 矢量旋转
+//     * @author created by Meiyu Chen at 2021-4-20 14:56, v1.0
+//     */
+//    private void startRotating(){
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        // 每隔100ms, 矢量顺时针旋转5度
+//                        Thread.sleep(100);
+//                        currAngle += 5f;
+//                        // 重新执行onDraw()，重新绘制view，必须在UI线程中调用
+//                        invalidate();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }).start();
+//    }
+
+    /** Description: 矢量旋转函数
+     *      矢量匀速顺时针旋转，并且每次旋转之后刷新UI
+     *      使用@OnLifecycleEvent(Lifecycle.Event.ON_RESUME)注解将矢量旋转动作和activity生命周期的resume()绑定在一起
+     *      使用@OnLifecycleEvent注解的函数不能是private的
+     * @author created by Meiyu Chen at 2021-4-21 14:55, v1.0
      */
-    private void startRotating(){
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void startRotatingV2() {
+        asyncTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                while (true) {
+                    if(asyncTask.isCancelled()){
+                        asyncTask = null;
+                        return null;
+                    }
+                    try {
+                        // 每隔100ms, 矢量顺时针旋转5度
+                        Thread.sleep(100);
+                        currAngle += 5f;
+                        currAngle %= 360;
+                        Log.d(TAG, "doInBackground: currAngle = " + currAngle);
+                        publishProgress();
+                    } catch (InterruptedException e) {
+                        Log.d(TAG, "doInBackground: 矢量旋转线程被中断");
+                    }
+                }
+            }
+
+            @Override
+            protected void onProgressUpdate(Void... values) {
+                // invalidate():  重新执行onDraw()，重新绘制view，必须在UI线程中调用
+                invalidate();
+            }
+        }.execute();
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    void pauseRotating(){
+        Log.d(TAG, "pauseRotating: ");
+        // 使用cancel函数并不能将子线程停止
+//        asyncTask.cancel(false);
+        // 有很多种方法可以实现立即停止子线程的功能，如：标志位法、异常法....
+        if (asyncTask!=null && asyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+            asyncTask.cancel(true);
+        }
+    }
 } // end class
