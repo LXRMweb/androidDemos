@@ -40,3 +40,11 @@
 - Handler
 - MessageQueue
 - Looper
+
+### android java中使用子线程执行耗时任务的两种方式
+
+|执行耗时任务的方法|方式一|方式二|
+|----| --------   | -----  |
+|概述|使用基础API(Thread+Runnable+Handler)|使用封装好的API(AsyncTask)|
+|相关class|<li>Thread<li>Runnable<li>Handler<li>Message<li>Bundle|AsyncTask|
+|相关知识点|<li>线程、线程池Thread/Runnable<li>异步消息处理机制Handler<li>消息Message|只需要了解AsyncTask子类怎么实现和调用就成，其余的一律不需要了解，不需要了解子线程、异步消息处理机制什么的|

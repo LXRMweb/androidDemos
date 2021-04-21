@@ -11,10 +11,11 @@ import android.widget.TextView;
 import com.example.appdemo01.R;
 
 public class TestThreadsMainActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView textView;
-    Button buttonAsyncTask;
-    Button buttonPrimitive;
-    SubThreadDemoBasicThreadAPI subThreadDemoBasicThreadAPI;
+    private TextView textView;
+    private Button buttonAsyncTask;
+    private Button buttonPrimitive;
+    private SubThreadDemoBasicThreadAPI subThreadDemoBasicThreadAPI;
+    private SubThreadDemoUseAsyncTask subThreadDemoUseAsyncTask;
     private Handler handler;
 
     @Override
@@ -30,12 +31,14 @@ public class TestThreadsMainActivity extends AppCompatActivity implements View.O
         buttonPrimitive.setOnClickListener(this);
 
         subThreadDemoBasicThreadAPI = new SubThreadDemoBasicThreadAPI(textView);
+        subThreadDemoUseAsyncTask = new SubThreadDemoUseAsyncTask(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_assycTask:
+                subThreadDemoUseAsyncTask.execute();
                 break;
             case R.id.button_primitive:
                 subThreadDemoBasicThreadAPI.subThreadWithprimitiveAPI();
