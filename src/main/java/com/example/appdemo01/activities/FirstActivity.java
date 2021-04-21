@@ -17,6 +17,7 @@ import cn.lxrm.demo.crazycat.CatchCrazzyCatActivity;
 import cn.lxrm.demo.fragment.TestFragmentActivity;
 import cn.lxrm.demo.game2048.MainGame2048Activity;
 import cn.lxrm.demo.mymenu.TestMyMenuActivity;
+import cn.lxrm.demo.threads.TestThreadsMainActivity;
 import cn.lxrm.demo.timer.Timer2Activity;
 import cn.lxrm.demo.timer.TimerActivity;
 import cn.lxrm.demo.view.TestViewMainActivity;
@@ -115,6 +116,10 @@ public class FirstActivity extends AppCompatActivity {
             case "13":
                 Intent intent10 = new Intent(FirstActivity.this, TestDrawSinViewMainActivity.class);
                 startActivity(intent10);
+                break;
+            case "14":
+                Intent intent11 = new Intent(FirstActivity.this, TestThreadsMainActivity.class);
+                startActivity(intent11);
                 break;
             default:
                 Log.v(TAG,"test Toast in native");

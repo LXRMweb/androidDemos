@@ -21,6 +21,10 @@ import androidx.lifecycle.LifecycleObserver;
 public class LifeCycleDemo extends View implements LifecycleObserver {
     private final String TAG = this.getClass().getSimpleName();
 
+    // 当前view组件的宽度和高度
+    private float mWidth = 0f;
+    private float mHeight = 0f;
+
     public LifeCycleDemo(Context context) {
         super(context);
         Log.d(TAG, "LifeCycleDemo: ");
@@ -78,13 +82,17 @@ public class LifeCycleDemo extends View implements LifecycleObserver {
     /**
      * Description: 该view的尺寸最终确定之后调用onSizeChanged()生命周期函数
      *      调用完onMeasure()之后会调用onSizeChanged()
-     *
+     *      横屏和竖屏转换时，会调用onSizeChanged，会重新获取该view的宽和高
      * @author created by Meiyu Chen at 2021-4-19 16:34, v1.0
      */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Log.d(TAG, "onSizeChanged: ");
+        Log.d(TAG, "onSizeChanged: w="+w+",h="+h+",oldW="+oldw+",oldH="+oldh);
+
+        // 更新当前view的宽度和高度
+        mWidth = w;
+        mHeight = h;
     }
 
     /**
@@ -110,7 +118,8 @@ public class LifeCycleDemo extends View implements LifecycleObserver {
 
     /**
      * Description: 自定义的绘图过程一般是放在onDraw()生命周期函数中
-     *
+     *      不要在onDraw中new创建对象，因为每帧画面都会重新执行onDraw
+     *      创建对象是非常耗用资源的, 不要在每帧画面中重建对象,否则会造成资源浪费，降低性能
      * @author created by Meiyu Chen at 2021-4-19 16:49, v1.0
      */
     @Override

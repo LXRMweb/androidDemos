@@ -10,4 +10,6 @@
     <color name="background">#28A69A9A</color>
     <color name="gray_game2048">#ffbbada0</color>
     <color name="white_game2048">#33ffffff</color>
+    <color name="yellow">#FFC107</color>
+    <color name="green">#4CAF50</color>
 </resources>
