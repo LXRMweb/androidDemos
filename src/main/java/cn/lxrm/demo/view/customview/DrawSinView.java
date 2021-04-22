@@ -40,6 +40,7 @@ import static cn.lxrm.demo.view.utils.DrawPicUtils.*;
  * 参考资料：
  *      【视频教程】（https://www.bilibili.com/video/BV1Xv411k756）
  * 调试工具： 设置 - 开发者选项 - monitoring - Profile HWUI rendering
+ *              设置 - 开发者选项 - 监控 - GPU呈现模式分析 - 在屏幕上显示为条形图
  *      通过上述工具查看当前view的绘图性能表现
  *      解析： 绿色的线表示每一帧视图加载时间，如60FPS（frame per seconds）的设备,一帧视图的加载时间约为1000 / 60 ~ 16ms
  *          下面的直方图表示实际每一帧视图加载时间，重点关注绿色部分，
