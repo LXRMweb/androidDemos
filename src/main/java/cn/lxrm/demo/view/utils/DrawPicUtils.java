@@ -16,7 +16,7 @@ public class DrawPicUtils{
      * @param angle：float 画布旋转角度(顺时针旋转)
      */
     public static void drawWithTranslation(Canvas canvas, float dx, float dy, float angle) {
-        Log.d(TAG, "drawWithTranslation: dx="+dx+",dy="+dy+",angle="+angle);
+//        Log.d(TAG, "drawWithTranslation: dx="+dx+",dy="+dy+",angle="+angle);
         // 画布上原有内容保存
         canvas.save();
 //        // 画布重置（将画布恢复到原始位置）
@@ -38,7 +38,7 @@ public class DrawPicUtils{
      * @param dy：float 画布垂直移动距离和方向
      */
     public static void drawWithTranslation(Canvas canvas, float dx, float dy) {
-        Log.d(TAG, "drawWithTranslation: dx="+dx+",dy="+dy);
+//        Log.d(TAG, "drawWithTranslation: dx="+dx+",dy="+dy);
         // 画布上原有内容保存
         canvas.save();
         // 画布平移
