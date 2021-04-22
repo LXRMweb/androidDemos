@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
@@ -49,6 +50,13 @@ public class DrawSinView extends View implements LifecycleObserver {
     private float radius;
     // 矢量当前角度
     private float currAngle = 10f;
+    // 正弦路径
+    private Path sinWavePath = new Path();
+    // 余弦路径
+    private Path cosWavePath = new Path();
+    // 采样频率（采样点数）
+    public static final int SAMPLES_COUNT = 100;
+
 
     // 画笔
     // 实线画笔
@@ -186,7 +194,7 @@ public class DrawSinView extends View implements LifecycleObserver {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Log.d(TAG, "onSizeChanged: w=" + w + ",h=" + h + ",oldW=" + oldw + ",oldH=" + oldh);
+//        // Log.d(TAG, "onSizeChanged: w=" + w + ",h=" + h + ",oldW=" + oldw + ",oldH=" + oldh);
 
         // 更新当前view的宽度和高度
         mWidth = w;
@@ -222,6 +230,8 @@ public class DrawSinView extends View implements LifecycleObserver {
         drawCricle(canvas);
         drawVector(canvas);
         drawProjections(canvas);
+        drawSinWave(canvas);
+        drawCosWave(canvas);
     }
 
     /**
@@ -290,14 +300,16 @@ public class DrawSinView extends View implements LifecycleObserver {
      * @author created by Meiyu Chen at 2021-4-22 9:57, v1.0
      */
     private void drawProjections(Canvas canvas) {
-        Log.d(TAG, "drawProjections: ");
-        /*  当前角度的余弦值、正弦值 */
+        // Log.d(TAG, "drawProjections: ");
+        /*  当前角度的余弦值、正弦值
+        *       注意: degree 和 radians 角度和弧度的相互转换
+        *       注意：投影要乘以半径 */
         float cosValue = (float) Math.cos(Math.toRadians(currAngle));
         float sinValue = (float) Math.sin(Math.toRadians(currAngle));
         // 矢量在x轴，y轴的投影坐标值
         float vectorDx = radius * cosValue;
         float vectorDy = radius * sinValue;
-        Log.d(TAG, "drawProjections: vectorDx = " + vectorDx + ",vectorDy = " + vectorDy);
+        // Log.d(TAG, "drawProjections: vectorDx = " + vectorDx + ",vectorDy = " + vectorDy);
 
         drawWithTranslation(canvas,mWidth/2,mHeight/2);
         // 在x轴上的投影（圆点）
@@ -319,6 +331,7 @@ public class DrawSinView extends View implements LifecycleObserver {
         // 绘制当前角度下，矢量圆半径在x轴方向上的投影（radius*cos(currAngle)）
         drawWithTranslation(canvas,mWidth/2,mHeight*3/4);
         canvas.drawLine(0f,0f,vectorDx,0,solidRedLinePaint);
+        canvas.restore();
     }
 
     /** Description: 矢量旋转函数
@@ -342,12 +355,12 @@ public class DrawSinView extends View implements LifecycleObserver {
                         Thread.sleep(100);
                         currAngle += 5f;
                         currAngle %= 360;
-                        Log.d(TAG, "doInBackground: currAngle = " + currAngle);
-                        Log.d(TAG, "doInBackground: currAngle = 直接在子线程中调用invalidate()函数");
+                        // Log.d(TAG, "doInBackground: currAngle = " + currAngle);
+                        // Log.d(TAG, "doInBackground: currAngle = 直接在子线程中调用invalidate()函数");
 //                        publishProgress();
                         invalidate();
                     } catch (InterruptedException e) {
-                        Log.d(TAG, "doInBackground: 矢量旋转线程被中断");
+                        // Log.d(TAG, "doInBackground: 矢量旋转线程被中断");
                     }
                 }
             }
@@ -362,12 +375,58 @@ public class DrawSinView extends View implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     void pauseRotating(){
-        Log.d(TAG, "pauseRotating: ");
+        // Log.d(TAG, "pauseRotating: ");
         // 使用cancel函数并不能将子线程停止
 //        asyncTask.cancel(false);
         // 有很多种方法可以实现立即停止子线程的功能，如：标志位法、异常法....
         if (asyncTask!=null && asyncTask.getStatus() == AsyncTask.Status.RUNNING) {
             asyncTask.cancel(true);
         }
+    }
+
+    /** Description: 绘制正弦函数
+     *      用绘制路径的方法绘制正弦函数
+     *      待绘制路径： path = radius * sin(ax+b) = radius * sin(ax+currAngle), 可以设置角速度a为任意常量, 设置矢量当前角度currAngle为初始相位
+     *      使用采样的方法采样若干个点，然后将相邻的点用贝叶斯函数连起来，就形成了我们想要的路径
+     *      绘制路径之前先将屏幕平移到坐标系原点，再逆时针旋转90度，绘制过程会更简单
+     *
+     * @author created by Meiyu Chen at 2021-4-22 14:16, v1.0
+     */
+    private void drawSinWave(Canvas canvas) {
+        Log.d(TAG, "drawSinWave: ");
+        // 采样间隔
+        float dx = mHeight / 2 / SAMPLES_COUNT;
+        // 清空历史数据
+        sinWavePath.reset();
+        // 将路径移动到起始位置（正弦函数和y轴的交点）
+        sinWavePath.moveTo(0f, (float) (radius*Math.sin(Math.toRadians(currAngle))));
+        for (int i = 0; i < SAMPLES_COUNT; i++) {
+            float currX = dx * i;
+            float a = 0.15f;
+            float currY =(float) (radius * Math.sin(a * i + Math.toRadians(currAngle)));
+            sinWavePath.quadTo(currX,currY,currX,currY);
+        }
+        drawWithTranslation(canvas,mWidth/2,mHeight/2,-90f);
+        canvas.drawPath(sinWavePath,solidBlueLinePaint);
+        canvas.restore();
+    }
+
+    private void drawCosWave(Canvas canvas) {
+        Log.d(TAG, "drawCosWave: ");
+        // 采样间隔
+        float dx = mHeight / 2 / SAMPLES_COUNT;
+        // 清空历史数据
+        sinWavePath.reset();
+        // 将路径移动到起始位置（正弦函数和y轴的交点）
+        sinWavePath.moveTo(0f, (float) (radius*Math.cos(Math.toRadians(currAngle))));
+        for (int i = 0; i < SAMPLES_COUNT; i++) {
+            float currX = dx * i;
+            float a = 0.15f;
+            float currY =(float) (radius * Math.cos(a * i + Math.toRadians(currAngle)));
+            sinWavePath.quadTo(currX,currY,currX,currY);
+        }
+        drawWithTranslation(canvas,mWidth/2,mHeight/2,-90);
+        canvas.drawPath(sinWavePath,solidRedLinePaint);
+        canvas.restore();
     }
 } // end class
