@@ -36,6 +36,16 @@ import static cn.lxrm.demo.view.utils.DrawPicUtils.*;
  *                   DrawSinView drawSinView = (DrawSinView) findViewById(R.id.drawSinView);
  *                   // 为自定义视图添加activity生命周期监听器，将自定义视图和activity生命周期绑定在一起
  *                   getLifecycle().addObserver(drawSinView);
+ *
+ * 参考资料：
+ *      【视频教程】（https://www.bilibili.com/video/BV1Xv411k756）
+ * 调试工具： 设置 - 开发者选项 - monitoring - Profile HWUI rendering
+ *      通过上述工具查看当前view的绘图性能表现
+ *      解析： 绿色的线表示每一帧视图加载时间，如60FPS（frame per seconds）的设备,一帧视图的加载时间约为1000 / 60 ~ 16ms
+ *          下面的直方图表示实际每一帧视图加载时间，重点关注绿色部分，
+ *          如果绿色部分高出上面绿色的线条，就说明你的当前activity需要改进，你需要降低相应视图中计算复杂度、图形绘制复杂度等，从而降低整个activity加载时间
+ *          防止实际加载时间超出上限（上方的绿色线条），出现“掉帧”现象
+ *
  * @author created by Meiyu Chen at 2021-4-19 14:55, v1.0
  * modified by [TODO-修改者] at [TODO-修改时间], [TODO-版本], 修改内容概述如下:
  * [TODO-修改内容概述]
@@ -393,7 +403,7 @@ public class DrawSinView extends View implements LifecycleObserver {
      * @author created by Meiyu Chen at 2021-4-22 14:16, v1.0
      */
     private void drawSinWave(Canvas canvas) {
-        Log.d(TAG, "drawSinWave: ");
+//        Log.d(TAG, "drawSinWave: ");
         // 采样间隔
         float dx = mHeight / 2 / SAMPLES_COUNT;
         // 清空历史数据
@@ -408,11 +418,20 @@ public class DrawSinView extends View implements LifecycleObserver {
         }
         drawWithTranslation(canvas,mWidth/2,mHeight/2,-90f);
         canvas.drawPath(sinWavePath,solidBlueLinePaint);
+        // 沿着路径绘制文字
+        canvas.drawTextOnPath("sin",sinWavePath, 1000f,20f,textPaint);
         canvas.restore();
     }
 
+    /** Description: 绘制余弦函数曲线
+     *      画布先平移、旋转，绘制过程会更简单
+     *      绘制路径时，使用采样方式，先获取路径上的若干个采样点（x,y）,然后将这些采样点连起来绘制成路径
+     *      采样频率将影响路径
+     *      路径 = radius * cos(ax + currAngle), 其中，radius是震荡幅度，currAngle是初始相位
+     * @author created by Meiyu Chen at 2021-4-22 15:41, v1.0
+     */
     private void drawCosWave(Canvas canvas) {
-        Log.d(TAG, "drawCosWave: ");
+//        Log.d(TAG, "drawCosWave: ");
         // 采样间隔
         float dx = mHeight / 2 / SAMPLES_COUNT;
         // 清空历史数据
@@ -427,6 +446,8 @@ public class DrawSinView extends View implements LifecycleObserver {
         }
         drawWithTranslation(canvas,mWidth/2,mHeight/2,-90);
         canvas.drawPath(sinWavePath,solidRedLinePaint);
+        // 沿着路径绘制文字
+        canvas.drawTextOnPath("cos",sinWavePath, 1450f,20f,textPaint);
         canvas.restore();
     }
 } // end class

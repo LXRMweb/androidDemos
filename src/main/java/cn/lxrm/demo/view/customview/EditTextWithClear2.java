@@ -40,6 +40,8 @@ import java.util.Objects;
  * 在构造函数中调用获取专属的方法，获取专属属性
  * 如：getCustomedViewAttrs(context,attrs);
  *
+ * * 参考资料：
+ *  *      【视频教程】（https://www.bilibili.com/video/BV1NK411A72N/?spm_id_from=333.788.recommend_more_video.2）
  * @author created by ChenMeiYu at 2021-4-14 19:54, v1.0
  */
 public class EditTextWithClear2 extends androidx.appcompat.widget.AppCompatEditText {
