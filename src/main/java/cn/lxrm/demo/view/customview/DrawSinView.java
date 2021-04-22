@@ -1,6 +1,5 @@
 package cn.lxrm.demo.view.customview;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.DashPathEffect;
@@ -10,7 +9,6 @@ import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Lifecycle;
@@ -55,10 +53,18 @@ public class DrawSinView extends View implements LifecycleObserver {
     // 画笔
     // 实线画笔
     private Paint solidLinePaint;
-    // 虚线画笔
+    // 实线画笔(红色)
+    private Paint solidRedLinePaint;
+    // 实线画笔(蓝色)
+    private Paint solidBlueLinePaint;
+    // 虚线画笔（黄色）
     private Paint dashedLinePaint;
+    // 虚线画笔(白色)
+    private Paint dashedWhiteLinePaint;
     // 矢量画笔
     private Paint vectorLinePaint;
+    // 填充画笔
+    private Paint filledCirclePaint;
     // 文字画笔
     private Paint textPaint;
 
@@ -110,6 +116,24 @@ public class DrawSinView extends View implements LifecycleObserver {
         // 设置画笔颜色
         solidLinePaint.setColor(getResources().getColor(R.color.white));
 
+        // 实线画笔
+        solidRedLinePaint = new Paint();
+        // 画笔样式：STROKE-无填充；FILL-有填充
+        solidRedLinePaint.setStyle(Paint.Style.STROKE);
+        // 设置线条宽度
+        solidRedLinePaint.setStrokeWidth(5f);
+        // 设置画笔颜色
+        solidRedLinePaint.setColor(getResources().getColor(R.color.red));
+
+        // 实线画笔
+        solidBlueLinePaint = new Paint();
+        // 画笔样式：STROKE-无填充；FILL-有填充
+        solidBlueLinePaint.setStyle(Paint.Style.STROKE);
+        // 设置线条宽度
+        solidBlueLinePaint.setStrokeWidth(5f);
+        // 设置画笔颜色
+        solidBlueLinePaint.setColor(getResources().getColor(R.color.blue));
+
         // 矢量实线画笔
         vectorLinePaint = new Paint();
         // 画笔样式：STROKE-无填充；FILL-有填充
@@ -119,6 +143,13 @@ public class DrawSinView extends View implements LifecycleObserver {
         // 设置画笔颜色
         vectorLinePaint.setColor(getResources().getColor(R.color.green));
 
+        // 实心填充画笔
+        filledCirclePaint = new Paint();
+        // 画笔样式：FILL-有填充
+        filledCirclePaint.setStyle(Paint.Style.FILL);
+        // 画笔颜色
+        filledCirclePaint.setColor(getResources().getColor(R.color.white));
+
         // 虚线画笔
         dashedLinePaint = new Paint();
         dashedLinePaint.setColor(getResources().getColor(R.color.yellow));
@@ -127,6 +158,13 @@ public class DrawSinView extends View implements LifecycleObserver {
         // 虚线
         float[] arr = {10f, 10f};
         dashedLinePaint.setPathEffect(new DashPathEffect(arr, 0f));
+
+        // 虚线画笔(白素)
+        dashedWhiteLinePaint = new Paint();
+        dashedWhiteLinePaint.setColor(getResources().getColor(R.color.white));
+        dashedWhiteLinePaint.setStyle(Paint.Style.STROKE);
+        dashedWhiteLinePaint.setStrokeWidth(5f);
+        dashedWhiteLinePaint.setPathEffect(new DashPathEffect(arr, 0f));
 
         // 文字画笔
         textPaint = new Paint();
@@ -183,6 +221,7 @@ public class DrawSinView extends View implements LifecycleObserver {
         drawAxises(canvas);
         drawCricle(canvas);
         drawVector(canvas);
+        drawProjections(canvas);
     }
 
     /**
@@ -243,6 +282,43 @@ public class DrawSinView extends View implements LifecycleObserver {
         // 画布平移+旋转，使得待绘制的矢量原点和坐标系原点重合，方向和x轴垂直
         drawWithTranslation(canvas, mWidth / 2, mHeight / 4 * 3, -currAngle);
         canvas.drawLine(0, 0, radius, 0, vectorLinePaint);
+        // 画布重置（将画布恢复到原始位置）
+        canvas.restore();
+    }
+
+    /** Description: 绘制“矢量投影”
+     * @author created by Meiyu Chen at 2021-4-22 9:57, v1.0
+     */
+    private void drawProjections(Canvas canvas) {
+        Log.d(TAG, "drawProjections: ");
+        /*  当前角度的余弦值、正弦值 */
+        float cosValue = (float) Math.cos(Math.toRadians(currAngle));
+        float sinValue = (float) Math.sin(Math.toRadians(currAngle));
+        // 矢量在x轴，y轴的投影坐标值
+        float vectorDx = radius * cosValue;
+        float vectorDy = radius * sinValue;
+        Log.d(TAG, "drawProjections: vectorDx = " + vectorDx + ",vectorDy = " + vectorDy);
+
+        drawWithTranslation(canvas,mWidth/2,mHeight/2);
+        // 在x轴上的投影（圆点）
+        canvas.drawCircle(vectorDx,0f,10f,filledCirclePaint);
+        canvas.restore();
+
+        // 在矢量圆的中轴线上的投影（圆点）
+        drawWithTranslation(canvas,mWidth/2,mHeight/4*3);
+        canvas.drawCircle(vectorDx,0f,10f,filledCirclePaint);
+        canvas.restore();
+
+        // 绘制投影线
+        // 将坐标系原点平移到投影线和矢量圆的交点处，之后再绘制投影线就相当于在y轴上绘制直线了
+        drawWithTranslation(canvas,mWidth/2+ vectorDx,mHeight/4*3- vectorDy);
+        canvas.drawLine(0f,0f,0f,-mHeight/4+ vectorDy,dashedWhiteLinePaint);
+        // 绘制当前角度下，矢量圆半径在y轴方向上的投影（radius*sin(currAngle)）
+        canvas.drawLine(0f,0f,0f,vectorDy,solidBlueLinePaint);
+        canvas.restore();
+        // 绘制当前角度下，矢量圆半径在x轴方向上的投影（radius*cos(currAngle)）
+        drawWithTranslation(canvas,mWidth/2,mHeight*3/4);
+        canvas.drawLine(0f,0f,vectorDx,0,solidRedLinePaint);
     }
 
     /** Description: 矢量旋转函数

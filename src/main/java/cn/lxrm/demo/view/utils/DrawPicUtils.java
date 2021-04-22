@@ -18,8 +18,8 @@ public class DrawPicUtils{
     public static void drawWithTranslation(Canvas canvas, float dx, float dy, float angle) {
         // 画布上原有内容保存
         canvas.save();
-        // 画布重置（将画布恢复到原始位置）
-        canvas.restore();
+//        // 画布重置（将画布恢复到原始位置）
+//        canvas.restore();
         // 画布平移
         canvas.translate(dx,dy);
         // 画布旋转
