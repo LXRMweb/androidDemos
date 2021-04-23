@@ -120,6 +120,8 @@ public class LifeCycleDemo extends View implements LifecycleObserver {
      * Description: 自定义的绘图过程一般是放在onDraw()生命周期函数中
      *      不要在onDraw中new创建对象，因为每帧画面都会重新执行onDraw
      *      创建对象是非常耗用资源的, 不要在每帧画面中重建对象,否则会造成资源浪费，降低性能
+     *      60FPS（帧每秒）的设备，1秒钟刷新60次屏幕，每次刷新屏幕，OS都会顺序执行一遍当前Activity的树形结构每个view中的onDraw()
+     *      也就是说，每16ms要执行完一次当前activity中所有view中的onDraw()
      * @author created by Meiyu Chen at 2021-4-19 16:49, v1.0
      */
     @Override

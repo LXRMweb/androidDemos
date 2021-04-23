@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="cn.lxrm.demo.view.surfaceview.TestSurfaceViewMainActivity">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_height="match_parent"
+        android:layout_width="100px"/>
+
+    <!-- 使用普通view绘制复杂图形 （不推荐）
+            容易阻塞UI线程，造成卡顿-->
+<!--    <cn.lxrm.demo.view.surfaceview.ComplexAnimWithCommonView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_width="wrap_content"/> -->
+
+    <!-- 使用SURfaceView绘制复杂图形 (推荐)
+            不会阻塞UI线程，不会卡顿-->
+    <cn.lxrm.demo.view.surfaceview.ComplexAnimWithSurfaceView
+        android:id="@+id/textView2"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"/>
+
+</LinearLayout>

@@ -23,6 +23,7 @@ import cn.lxrm.demo.timer.TimerActivity;
 import cn.lxrm.demo.view.TestViewMainActivity;
 import cn.lxrm.demo.view.customview.TestDrawSinViewMainActivity;
 import cn.lxrm.demo.view.lifecycle.TestViewLifecycleMainActivity;
+import cn.lxrm.demo.view.surfaceview.TestSurfaceViewMainActivity;
 
 public class FirstActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.appdemo01.MESSAGE";
@@ -121,10 +122,12 @@ public class FirstActivity extends AppCompatActivity {
                 Intent intent11 = new Intent(FirstActivity.this, TestThreadsMainActivity.class);
                 startActivity(intent11);
                 break;
+            case "15":
+                Intent intent12 = new Intent(FirstActivity.this, TestSurfaceViewMainActivity.class);
+                startActivity(intent12);
+                break;
             default:
-                Log.v(TAG,"test Toast in native");
-                Toast.makeText(this,"测试 Toast",Toast.LENGTH_LONG).show();
-                Log.v(TAG,"test Toast in native end");
+                Toast.makeText(this,"请输入1-15的数字",Toast.LENGTH_LONG).show();
                 break;
         }
     }
